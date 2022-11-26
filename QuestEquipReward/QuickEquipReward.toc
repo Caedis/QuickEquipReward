@@ -1,0 +1,8 @@
+## Interface: 100002
+## Title: QuickEquipReward
+## Author: Caedis
+## Version: 0.1
+## Dependencies: Pawn
+
+embeds.xml
+Core.lua
