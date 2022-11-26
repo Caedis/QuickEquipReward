@@ -40,10 +40,10 @@ local function AddPercentageUpgrade(i)
 	end
 
 	local equipItemID = GetInventoryItemID('player', questReward.equipLoc)
-    -- player has nothing in that slot
-    if not equipItemID then return 100 end
+	-- player has nothing in that slot
+	if not equipItemID then return 100 end
 
-    -- heirloom detection
+	-- heirloom detection
 	if C_Heirloom then
 		if C_Heirloom.IsItemHeirloom(equipItemID) then
 			local playerLevel = UnitLevel('player')
@@ -60,7 +60,7 @@ local function AddPercentageUpgrade(i)
 end
 
 local function QUEST_COMPLETE()
-    local numQuestChoices = GetNumQuestChoices()
+	local numQuestChoices = GetNumQuestChoices()
 
 	if not AreQuestRewardsReady() then
 		waitingForItems = true
@@ -71,7 +71,7 @@ local function QUEST_COMPLETE()
 	wipe(questRewards)
 	for i=1,numQuestChoices do
 		local itemLink = GetQuestItemLink('choice', i)
-    	local itemID = GetItemInfoInstant(itemLink)
+		local itemID = GetItemInfoInstant(itemLink)
 		local sellPrice  = select(11, GetItemInfo(itemID))
 		local equipLoc = C_Item.GetItemInventoryTypeByID(itemID)
 		questRewards[i] = {
@@ -138,6 +138,6 @@ end
 
 
 function QER:OnInitialize()
-    QER:RegisterEvent('QUEST_ITEM_UPDATE', QUEST_ITEM_UPDATE)
-    QER:RegisterEvent('QUEST_COMPLETE', QUEST_COMPLETE)
+	QER:RegisterEvent('QUEST_ITEM_UPDATE', QUEST_ITEM_UPDATE)
+	QER:RegisterEvent('QUEST_COMPLETE', QUEST_COMPLETE)
 end
