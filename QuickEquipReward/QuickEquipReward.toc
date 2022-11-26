@@ -3,6 +3,8 @@
 ## Author: Caedis
 ## Version: 0.1
 ## Dependencies: Pawn
+## X-Curse-Project-ID: 711857
+## X-Wago-ID: 
 
 embeds.xml
 Core.lua
