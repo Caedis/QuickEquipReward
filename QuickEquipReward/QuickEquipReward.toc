@@ -4,7 +4,7 @@
 ## Version: 0.1
 ## Dependencies: Pawn
 ## X-Curse-Project-ID: 711857
-## X-Wago-ID: 
+## X-Wago-ID: qv63mpGb
 
 embeds.xml
 Core.lua
