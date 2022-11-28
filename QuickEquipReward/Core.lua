@@ -86,8 +86,8 @@ local function QUEST_COMPLETE()
 	end
 
 
-	local function sortByUpgrade(a, b) return a.upgradePercent > b.upgradePercent end
-	local function sortBySellPrice(a, b) return a.sellPrice > b.sellPrice end
+	local function sortByUpgrade(a, b) return (a.upgradePercent or 0) > (b.upgradePercent or 0) end
+	local function sortBySellPrice(a, b) return (a.sellPrice or 0) > (b.sellPrice or 0) end
 	sort(questRewards, sortByUpgrade)
 
 
