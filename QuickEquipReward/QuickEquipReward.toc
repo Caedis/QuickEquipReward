@@ -1,7 +1,7 @@
 ## Interface: 100002
 ## Title: QuickEquipReward
 ## Author: Caedis
-## Version: 0.1
+## Version: 1.0
 ## Dependencies: Pawn
 ## X-Curse-Project-ID: 711857
 ## X-Wago-ID: qv63mpGb
