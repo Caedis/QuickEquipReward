@@ -3,14 +3,14 @@ package-as: QuickEquipReward
 enable-nolib-creation: no
 
 required-dependencies:
-	- pawn
+  - pawn
 
 externals:
-	QuickEquipReward/Libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
-	QuickEquipReward/Libs/AceAddon-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceAddon-3.0
-	QuickEquipReward/Libs/AceConsole-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceConsole-3.0
-	QuickEquipReward/Libs/AceEvent-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceEvent-3.0
+  QuickEquipReward/Libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
+  QuickEquipReward/Libs/AceAddon-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceAddon-3.0
+  QuickEquipReward/Libs/AceConsole-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceConsole-3.0
+  QuickEquipReward/Libs/AceEvent-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceEvent-3.0
 
-	
+  
 move-folders:
-		QuickEquipReward/QuickEquipReward: QuickEquipReward
+    QuickEquipReward/QuickEquipReward: QuickEquipReward
