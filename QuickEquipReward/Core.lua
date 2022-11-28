@@ -56,7 +56,7 @@ local function AddPercentageUpgrade(i)
 
 	local upgradeInfo = PawnIsItemIDAnUpgrade(questReward.itemID)
 
-	return upgradeInfo and upgradeInfo[1]['PercentUpgrade'], upgradeInfo and upgradeInfo[1]['ExistingItemLink']
+	return upgradeInfo and upgradeInfo[1]['PercentUpgrade']
 end
 
 local function QUEST_COMPLETE()
@@ -82,7 +82,7 @@ local function QUEST_COMPLETE()
 			sellPrice = sellPrice
 		}
 
-		questRewards[i].upgradePercent, questRewards[i].existingItemLink = AddPercentageUpgrade(i)
+		questRewards[i].upgradePercent = AddPercentageUpgrade(i)
 	end
 
 
@@ -93,8 +93,9 @@ local function QUEST_COMPLETE()
 
 	if questRewards[1].upgradePercent then
 		local highest = questRewards[1]
-		QER:Print(strjoin('', 'Upgrade: ', highest.existingItemLink or 'Empty', ' -> ', highest.itemLink))
-		toEquip[itemID] = true
+		QER:Print(strjoin('', 'Upgrade: ', highest.itemLink))
+		toEquip[highest.itemID] = true
+		if IsShiftKeyDown() then return end
 		QER:RegisterEvent('BAG_UPDATE_DELAYED')
 
 		_G['QuestInfoRewardsFrameQuestInfoItem'..highest.choiceIndex]:Click()
@@ -102,11 +103,11 @@ local function QUEST_COMPLETE()
 		sort(questRewards, sortBySellPrice)
 		local highest = questRewards[1]
 		QER:Print(strjoin('', 'Vendor: ', highest.itemLink, ' - ', GetMoneyString(highest.sellPrice)))
+		if IsShiftKeyDown() then return end
 
 		_G['QuestInfoRewardsFrameQuestInfoItem'..highest.choiceIndex]:Click()
 	end
 
-	if IsShiftKeyDown() then return end
 
 	_G.QuestRewardCompleteButton_OnClick()
 end
