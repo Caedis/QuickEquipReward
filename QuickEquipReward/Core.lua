@@ -7,8 +7,8 @@ QER.Classic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 QER.Wrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
 local waitingForItems = false
-local questRewards = {}
-local toEquip = {}
+questRewards = {}
+toEquip = {}
 
 local function AreQuestRewardsReady()
 	local totalrewards = GetNumQuestChoices()
@@ -54,7 +54,10 @@ local function AddPercentageUpgrade(i)
 		end
 	end
 
-	local upgradeInfo = PawnIsItemIDAnUpgrade(questReward.itemID)
+	local pawnInfo = PawnGetItemData(questReward.itemLink)
+	if not pawnInfo then return nil end
+
+	local upgradeInfo = PawnIsItemAnUpgrade(pawnInfo)
 
 	return upgradeInfo and upgradeInfo[1]['PercentUpgrade']
 end
@@ -72,7 +75,7 @@ local function QUEST_COMPLETE()
 	for i=1,numQuestChoices do
 		local itemLink = GetQuestItemLink('choice', i)
 		local itemID = GetItemInfoInstant(itemLink)
-		local sellPrice  = select(11, GetItemInfo(itemID))
+		local sellPrice  = select(11, GetItemInfo(itemLink))
 		local equipLoc = C_Item.GetItemInventoryTypeByID(itemID)
 		questRewards[i] = {
 			choiceIndex = i,
@@ -96,7 +99,7 @@ local function QUEST_COMPLETE()
 		QER:Print(strjoin('', 'Upgrade: ', highest.itemLink))
 		toEquip[highest.itemID] = true
 		if IsShiftKeyDown() then return end
-		QER:RegisterEvent('BAG_UPDATE_DELAYED')
+		QER:RegisterEvent('ITEM_PUSH')
 
 		_G['QuestInfoRewardsFrameQuestInfoItem'..highest.choiceIndex]:Click()
 	else
@@ -128,8 +131,8 @@ local function AutoEquip()
 	end
 end
 
-function QER:BAG_UPDATE_DELAYED()
-	QER:UnregisterEvent('BAG_UPDATE_DELAYED')
+function QER:ITEM_PUSH()
+	QER:UnregisterEvent('ITEM_PUSH')
 	if InCombatLockdown() then
 		QER:RegisterEvent('PLAYER_REGEN_ENABLED', AutoEquip)
 		return
