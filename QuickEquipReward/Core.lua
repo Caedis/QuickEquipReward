@@ -56,13 +56,14 @@ local function AddPercentageUpgrade(i)
 
 	local pawnInfo = PawnGetItemData(questReward.itemLink)
 	if not pawnInfo then return nil end
-
 	local upgradeInfo = PawnIsItemAnUpgrade(pawnInfo)
 
 	return upgradeInfo and upgradeInfo[1]['PercentUpgrade']
 end
 
 local function QUEST_COMPLETE()
+	if not (_G.QuestFrameCompleteQuestButton and _G.QuestFrameCompleteQuestButton:IsVisible()) then return end
+
 	local numQuestChoices = GetNumQuestChoices()
 
 	if not AreQuestRewardsReady() then
