@@ -35,11 +35,11 @@ end
 -- [5]=false
 local function AddPercentageUpgrade(i)
 	local questReward = questRewards[i]
-	if questReward.equipLoc == 0 then
+	if not questReward.equipLoc then
 		return nil
 	end
 
-	local equipItemID = GetInventoryItemID('player', questReward.equipLoc)
+	local equipItemID = GetInventoryItemID('player', PawnGetSlotsForItemType(questReward.equipLoc))
 	-- player has nothing in that slot
 	if not equipItemID then return 100 end
 
@@ -75,9 +75,8 @@ local function QUEST_COMPLETE()
 	wipe(questRewards)
 	for i=1,numQuestChoices do
 		local itemLink = GetQuestItemLink('choice', i)
-		local itemID = GetItemInfoInstant(itemLink)
+		local itemID, _, _, equipLoc = GetItemInfoInstant(itemLink)
 		local sellPrice  = select(11, GetItemInfo(itemLink))
-		local equipLoc = C_Item.GetItemInventoryTypeByID(itemID)
 		questRewards[i] = {
 			choiceIndex = i,
 			itemLink = itemLink,
