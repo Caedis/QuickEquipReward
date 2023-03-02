@@ -7,8 +7,8 @@ QER.Classic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 QER.Wrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
 local waitingForItems = false
-questRewards = {}
-toEquip = {}
+local questRewards = {}
+local toEquip = {}
 
 local function AreQuestRewardsReady()
 	local totalrewards = GetNumQuestChoices()
@@ -39,6 +39,10 @@ local function AddPercentageUpgrade(i)
 		return nil
 	end
 
+	local pawnInfo = PawnGetItemData(questReward.itemLink)
+	if not pawnInfo then return nil end
+	if not pawnInfo.CanEquip then return nil end
+
 	local equipItemID = GetInventoryItemID('player', PawnGetSlotsForItemType(questReward.equipLoc))
 	-- player has nothing in that slot
 	if not equipItemID then return 100 end
@@ -54,8 +58,6 @@ local function AddPercentageUpgrade(i)
 		end
 	end
 
-	local pawnInfo = PawnGetItemData(questReward.itemLink)
-	if not pawnInfo then return nil end
 	local upgradeInfo = PawnIsItemAnUpgrade(pawnInfo)
 
 	return upgradeInfo and upgradeInfo[1]['PercentUpgrade']
